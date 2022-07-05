@@ -958,6 +958,8 @@ class RepeatSurface(Surface):
         return [RepeatSurface(p, self.min, self.max) for p in self.surf.permutations()]
 
     def over_approximation(self):
+        if isinstance(self.surf, HoleSurface):
+            return RepeatSurface(WildcardSurface(), self.min, self.max)
         surf = self.surf.over_approximation()
         if surf is None:
             return None
